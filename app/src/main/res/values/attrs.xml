@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="lineTitleView">
+        <attr name="contentText" format="string|reference"/>
+        <attr name="contentSize" format="reference|dimension"/>
+        <attr name="contentColor" format="color"/>
+        <attr name="lineHeight" format="dimension"/>
+        <attr name="lineTextSpan" format="dimension"/>
+        <attr name="lineColor" format="dimension|reference"/>
+        <attr name="lineWidth" format="dimension|reference"/>
+    </declare-styleable>
+
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>
