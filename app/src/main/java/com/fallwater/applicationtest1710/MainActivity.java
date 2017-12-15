@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Property;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +29,21 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
     private static final String TAG = "tag";
 
+    @BindView(R.id.button1)
+    Button mButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout01);
         test();
+        super.onCreate(savedInstanceState);
     }
 
     private void test() {
@@ -57,27 +62,31 @@ public class MainActivity extends BaseActivity {
     private void threads() {
         mExecutorService = Executors.newFixedThreadPool(3);
         final MutiThread mutiThread = new MutiThread();
-        mExecutorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    mutiThread.produce();
+        mExecutorService.execute(() -> {
+            while (true) {
+                mutiThread.produce();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
 
-        mExecutorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    mutiThread.consume();
+        mExecutorService.execute(() -> {
+            while (true) {
+                mutiThread.consume();
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
     }
 
     @OnClick({R.id.button1})
-    private void onClick(View view) {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
                 break;

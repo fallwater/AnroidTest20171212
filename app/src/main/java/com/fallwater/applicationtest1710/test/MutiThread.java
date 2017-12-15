@@ -23,11 +23,13 @@ public class MutiThread {
             try {
                 wait();
                 Log.d("tag", "产品已满，请稍后再生产");
+                return;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         mProduct++;
+        Log.d("tag","生产者生产第" + this.mProduct + "个产品.");
         notifyAll();
 
     }
@@ -40,11 +42,13 @@ public class MutiThread {
             try {
                 wait();
                 Log.d("tag", "缺货，请稍后再取");
+                return;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
+        Log.d("tag","消费者消费第" + this.mProduct + "个产品.");
         mProduct--;
         notifyAll();
     }
