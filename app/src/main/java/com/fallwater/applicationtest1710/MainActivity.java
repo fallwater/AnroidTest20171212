@@ -3,70 +3,110 @@ package com.fallwater.applicationtest1710;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.OnCompositionLoadedListener;
+import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.test.MutableForegroundColorSpan;
+import com.fallwater.applicationtest1710.test.MutiThread;
 import com.fallwater.applicationtest1710.test.TypeWriterSpanGroup;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Property;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = "tag";
-
-    LottieAnimationView mLottieAnimationView;
-
-    Button mButton;
-
-    List<String> files;
-
-    int index;
-
-    private static final Property<TypeWriterSpanGroup, Float> TYPE_WRITER_GROUP_ALPHA_PROPERTY =
-            new Property<TypeWriterSpanGroup, Float>(Float.class,
-                    "TYPE_WRITER_GROUP_ALPHA_PROPERTY") {
-                @Override
-                public void set(TypeWriterSpanGroup spanGroup, Float value) {
-                    Log.d("fall", "value:" + value);
-                    spanGroup.setAlpha(value);
-                }
-
-                @Override
-                public Float get(TypeWriterSpanGroup spanGroup) {
-                    Log.d("fall", "value:" + spanGroup.getAlpha());
-                    return spanGroup.getAlpha();
-                }
-            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout01);
-        mLottieAnimationView = findViewById(R.id.id_tv_framespan);
-        mButton = findViewById(R.id.button1);
-//        typeWriter(tv);
+        test();
+    }
 
-        initData();
-        initListener();
+    private void test() {
+//        typeWriter(tv);
+//        lottie();
+        threads();
 
     }
 
-    private void initData() {
+
+    private ExecutorService mExecutorService;
+
+    /**
+     * 测试多线程
+     */
+    private void threads() {
+        mExecutorService = Executors.newFixedThreadPool(3);
+        final MutiThread mutiThread = new MutiThread();
+        mExecutorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    mutiThread.produce();
+                }
+            }
+        });
+
+        mExecutorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    mutiThread.consume();
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.button1})
+    private void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button1:
+                break;
+//            case R.id.id_tv_framespan:
+//                Log.d(TAG, files.get(index));
+//                Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
+//                        Toast.LENGTH_SHORT).show();
+//                lottieAni(files.get(index));
+//                index++;
+//                if (index == files.size()) {
+//                    index = 0;
+//                }
+//                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 测试lottie动画
+     */
+
+    private void lottie() {
+        LottieAnimationView mLottieAnimationView;
+
+        List<String> files = null;
+
+        int index;
+//        mLottieAnimationView = findViewById(R.id.id_tv_framespan);
         try {
             String[] allFiles = getAssets().list("");
             Log.d(TAG, "***************");
@@ -88,34 +128,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initListener() {
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, files.get(index));
-                Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
-                        Toast.LENGTH_SHORT).show();
-                lottieAni(files.get(index));
-                index++;
-                if (index == files.size()) {
-                    index = 0;
-                }
-            }
-        });
-
-    }
-
-    private void lottieAni(String fileName) {
+    private void lottieAni(String fileName, final LottieAnimationView lottieAnimationView) {
         try {
             LottieComposition.Factory.fromAssetFileName(this, fileName,
                     new OnCompositionLoadedListener() {
                         @Override
                         public void onCompositionLoaded(@Nullable LottieComposition composition) {
                             if (composition != null) {
-                                mLottieAnimationView.setComposition(composition);
-                                mLottieAnimationView.setProgress(0.333f);
-                                mLottieAnimationView.playAnimation();
-                                mLottieAnimationView.loop(true);
+                                lottieAnimationView.setComposition(composition);
+                                lottieAnimationView.setProgress(0.333f);
+                                lottieAnimationView.playAnimation();
+                                lottieAnimationView.loop(true);
                             }
                         }
                     });
@@ -125,7 +148,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 测试打字机效果
+     */
     private void typeWriter(final TextView tv) {
+        final Property<TypeWriterSpanGroup, Float> TYPE_WRITER_GROUP_ALPHA_PROPERTY =
+                new Property<TypeWriterSpanGroup, Float>(Float.class,
+                        "TYPE_WRITER_GROUP_ALPHA_PROPERTY") {
+                    @Override
+                    public void set(TypeWriterSpanGroup spanGroup, Float value) {
+                        Log.d("fall", "value:" + value);
+                        spanGroup.setAlpha(value);
+                    }
+
+                    @Override
+                    public Float get(TypeWriterSpanGroup spanGroup) {
+                        Log.d("fall", "value:" + spanGroup.getAlpha());
+                        return spanGroup.getAlpha();
+                    }
+                };
+
         String val = "helloworld,helloworld!helloworld,helloworld!helloworld";
         final SpannableString spannableString = new SpannableString(val);
         // 添加Span
