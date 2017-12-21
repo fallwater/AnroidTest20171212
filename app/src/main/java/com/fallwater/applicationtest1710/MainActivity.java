@@ -4,6 +4,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.fallwater.applicationtest1710.base.BaseActivity;
+import com.fallwater.applicationtest1710.fragment.RVFragment;
 import com.fallwater.applicationtest1710.test.AomicTest;
 import com.fallwater.applicationtest1710.test.CountDownLatchTest;
 import com.fallwater.applicationtest1710.test.CyclicBarrierTest;
@@ -15,16 +16,21 @@ import com.fallwater.applicationtest1710.test.TypeWriterSpanGroup;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Property;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,30 +53,46 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.button1)
     Button mButton;
 
+    @BindView(R.id.container)
+    ViewGroup mViewGroup;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.test_layout01);
         super.onCreate(savedInstanceState);
-        test();
+
+        addFragment();
+//        test();
+    }
+
+    private void addFragment() {
+        Fragment fragment = new RVFragment();
+
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+
     }
 
 
     @OnClick({R.id.button1})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button1:
-                test();
-                break;
-//            case R.id.id_tv_framespan:
-//                Log.d(TAG, files.get(index));
-//                Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
-//                        Toast.LENGTH_SHORT).show();
-//                lottieAni(files.get(index));
-//                index++;
-//                if (index == files.size()) {
-//                    index = 0;
-//                }
+//            case R.id.button1:
+//                test();
 //                break;
+            case R.id.button1:
+                Log.d(TAG, files.get(index));
+                Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
+                        Toast.LENGTH_SHORT).show();
+                lottieAni(files.get(index), mLottieAnimationView);
+                index++;
+                if (index == files.size()) {
+                    index = 0;
+                }
+                break;
             default:
                 break;
         }
@@ -86,9 +108,7 @@ public class MainActivity extends BaseActivity {
 //        atomicText2();
 //        countDownLatch();
 //        cyclicBarrierTest();
-        semaphore();
-
-
+//        semaphore();
 
     }
 
@@ -121,7 +141,7 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
 //        mExecutorService.execute(countDownLatchTest::work);
-        Log.d("tag","main thread word end");
+        Log.d("tag", "main thread word end");
 
     }
 
@@ -143,7 +163,7 @@ public class MainActivity extends BaseActivity {
         mExecutorService.execute(aomicTest::increase2);
         mExecutorService.execute(aomicTest::increase2);
         mButton.postDelayed(() -> {
-            Log.d("tag", "mAtomicInteger:" + aomicTest.mAtomicInteger.get()+"");
+            Log.d("tag", "mAtomicInteger:" + aomicTest.mAtomicInteger.get() + "");
         }, 3000);
     }
 
@@ -204,16 +224,18 @@ public class MainActivity extends BaseActivity {
     /**
      * 测试lottie动画
      */
+    int index;
+
+    @BindView(R.id.id_tv_framespan)
+    LottieAnimationView mLottieAnimationView;
+
+    List<String> files = null;
 
     private void lottie() {
-        LottieAnimationView mLottieAnimationView;
 
-        List<String> files = null;
-
-        int index;
-//        mLottieAnimationView = findViewById(R.id.id_tv_framespan);
         try {
-            String[] allFiles = getAssets().list("");
+//            String[] allFiles = getAssets().list("");
+            String[] allFiles = getAssets().list("test1");
             Log.d(TAG, "***************");
 
             if (files == null) {
