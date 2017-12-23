@@ -37,4 +37,7 @@ dependencies {
     //apache
     compile 'org.apache.commons:commons-lang3:3.6'
     implementation 'com.android.support:recyclerview-v7:27.0.2'
+
+    //BRVAH
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
