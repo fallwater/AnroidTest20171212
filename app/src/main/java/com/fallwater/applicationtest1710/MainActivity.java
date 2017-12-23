@@ -59,11 +59,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.test_layout01);
         super.onCreate(savedInstanceState);
-
         addFragment();
 //        test();
+    }
+
+    @Override
+    protected int initLayout() {
+        return R.layout.test_layout01;
     }
 
     private void addFragment() {

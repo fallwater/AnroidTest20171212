@@ -12,16 +12,18 @@ import butterknife.Unbinder;
  * @mail 1667376033@qq.com
  * 功能描述:
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     Unbinder mUnBinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(initLayout());
         mUnBinder = ButterKnife.bind(this);
     }
+
+    protected abstract int initLayout();
 
 
     @Override
