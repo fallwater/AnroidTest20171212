@@ -49,10 +49,13 @@ public class MainActivity extends BaseActivity {
     Button mButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.test_layout01);
-        super.onCreate(savedInstanceState);
+    protected void initView(Bundle savedInstanceState) {
         test();
+    }
+
+    @Override
+    protected int initLayout() {
+        return R.layout.test_layout01;
     }
 
 
@@ -74,7 +77,7 @@ public class MainActivity extends BaseActivity {
         Log.d(TAG, files.get(index));
         Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
                 Toast.LENGTH_SHORT).show();
-        lottieAni(files.get(index),mLottieAnimationView);
+        lottieAni(files.get(index), mLottieAnimationView);
         index++;
         if (index == files.size()) {
             index = 0;
