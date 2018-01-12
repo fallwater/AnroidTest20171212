@@ -25,6 +25,7 @@ import android.util.Property;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,26 +60,30 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
-                test();
+//                test();
+                nextLottie();
                 break;
-//            case R.id.id_tv_framespan:
-//                Log.d(TAG, files.get(index));
-//                Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
-//                        Toast.LENGTH_SHORT).show();
-//                lottieAni(files.get(index));
-//                index++;
-//                if (index == files.size()) {
-//                    index = 0;
-//                }
-//                break;
+            case R.id.id_tv_framespan:
+                break;
             default:
                 break;
         }
     }
 
+    private void nextLottie() {
+        Log.d(TAG, files.get(index));
+        Toast.makeText(MainActivity.this, "当前播放的json文件:" + files.get(index),
+                Toast.LENGTH_SHORT).show();
+        lottieAni(files.get(index),mLottieAnimationView);
+        index++;
+        if (index == files.size()) {
+            index = 0;
+        }
+    }
+
     private void test() {
 //        typeWriter(tv);
-//        lottie();
+        lottie();
 //        threads();
 //        reentrantLock();
 //        conditionTest();
@@ -86,9 +91,7 @@ public class MainActivity extends BaseActivity {
 //        atomicText2();
 //        countDownLatch();
 //        cyclicBarrierTest();
-        semaphore();
-
-
+//        semaphore();
 
     }
 
@@ -121,7 +124,7 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
 //        mExecutorService.execute(countDownLatchTest::work);
-        Log.d("tag","main thread word end");
+        Log.d("tag", "main thread word end");
 
     }
 
@@ -143,7 +146,7 @@ public class MainActivity extends BaseActivity {
         mExecutorService.execute(aomicTest::increase2);
         mExecutorService.execute(aomicTest::increase2);
         mButton.postDelayed(() -> {
-            Log.d("tag", "mAtomicInteger:" + aomicTest.mAtomicInteger.get()+"");
+            Log.d("tag", "mAtomicInteger:" + aomicTest.mAtomicInteger.get() + "");
         }, 3000);
     }
 
@@ -205,14 +208,17 @@ public class MainActivity extends BaseActivity {
      * 测试lottie动画
      */
 
+    LottieAnimationView mLottieAnimationView;
+
+    List<String> files = null;
+
+    int index;
+
     private void lottie() {
-        LottieAnimationView mLottieAnimationView;
 
-        List<String> files = null;
-
-        int index;
-//        mLottieAnimationView = findViewById(R.id.id_tv_framespan);
+        mLottieAnimationView = findViewById(R.id.id_tv_framespan);
         try {
+//            String[] allFiles = getAssets().list("test1");
             String[] allFiles = getAssets().list("");
             Log.d(TAG, "***************");
 
