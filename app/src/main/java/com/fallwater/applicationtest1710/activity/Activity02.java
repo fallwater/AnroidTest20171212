@@ -4,6 +4,7 @@ import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.fragment.BRVAHFragment;
 import com.fallwater.applicationtest1710.fragment.RVFragment;
+import com.fallwater.applicationtest1710.fragment.TestFragment01;
 import com.fallwater.applicationtest1710.test.SparseArrayTest;
 
 import android.os.Bundle;
@@ -23,8 +24,9 @@ public class Activity02 extends BaseActivity {
         super.onCreate(savedInstanceState);
 //        addFragment();
 //        testArray();
-        addBRVAHFragment();
+//        addBRVAHFragment();
 
+        addTestFragment();
 
     }
 
@@ -35,6 +37,13 @@ public class Activity02 extends BaseActivity {
         Fragment fragment = new BRVAHFragment();
         addFragment(fragment);
     }
+
+    private void addTestFragment() {
+        Fragment fragment = new TestFragment01();
+        addFragment(fragment);
+    }
+
+
 
     /**
      * 测试sparseArray

@@ -26,4 +26,6 @@ public class BRVAHAdapter extends BaseQuickAdapter<Bean1,BaseViewHolder> {
         helper.setText(R.id.tv01,item.value+"")
         .addOnClickListener(R.id.tv01);
     }
+    
+
 }
