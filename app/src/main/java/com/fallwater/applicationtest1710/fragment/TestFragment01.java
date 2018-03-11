@@ -3,7 +3,6 @@ package com.fallwater.applicationtest1710.fragment;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.define.CenteredImageSpan;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -31,7 +30,7 @@ public class TestFragment01 extends BaseFragment {
     @Override
     protected void initView(View rootView, Bundle savedInstanceState) {
 
-        initTextView();
+//        initTextView();
 
 
     }
@@ -42,7 +41,7 @@ public class TestFragment01 extends BaseFragment {
 //                drawable.getIntrinsicHeight());
         SpannableString spannable = new SpannableString(mTextView.getText()
                 .toString() + "[smile]");
-        ImageSpan span = new CenteredImageSpan(getContext(),R.drawable.ic_agree);
+        ImageSpan span = new CenteredImageSpan(getContext(), R.drawable.ic_agree);
         spannable.setSpan(span, 0,
                 1,
                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);

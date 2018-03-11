@@ -30,6 +30,11 @@ public class Activity02 extends BaseActivity {
 
     }
 
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
+    }
+
     /**
      * 测试BRVAH框架
      */
