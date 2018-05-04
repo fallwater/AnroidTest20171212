@@ -6,9 +6,12 @@ import com.fallwater.applicationtest1710.define.CenteredImageSpan;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 
@@ -32,8 +35,47 @@ public class TestFragment01 extends BaseFragment {
 
 //        initTextView();
 
+        test01();
+
 
     }
+
+    private void test01() {
+        if (checkSms(content, regex)) {
+            Log.d("log", "pass");
+            String smsRegex = regex;
+            Log.d("log", "匹配正则表达式:" + smsRegex);
+            Log.d("log", "正则表达式匹配成功");
+            //得到短信模板中冒号的位置
+            Toast.makeText(getActivity(), "匹配成功", Toast.LENGTH_SHORT).show();
+            int start = content.indexOf(":");
+            String captch = content.length() >= start + 6 ? content.substring(start + 1, start + 6) : null;
+            Log.d("log", "提取的验证码为:" + captch);
+        } else {
+            Log.d("log", "正则表达式匹配失败");
+            Toast.makeText(getActivity(), "匹配失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private static final String content
+            = "OTP Ubah Kata Sandi:76254. HATI-HATI PENIPUAN, Pihak Akulaku TIDAK AKAN meminta kode verifikasi milik Anda. JANGAN BERIKAN kode verifikasi PADA SIAPAPUN.";
+
+    private static final String regex = "OTPUbahKataSandi";
+
+    private static boolean checkSms(String smsContent, String regex) {
+        if (TextUtils.isEmpty(smsContent) || TextUtils.isEmpty(regex)) {
+            return false;
+        }
+
+        String result = content.replaceAll("[^a-z^A-Z^0-9]", "");
+        Log.d("log", result);
+        return result
+//                .replace(":","")
+                .startsWith(regex);
+
+    }
+
 
     private void initTextView() {
 //        Drawable drawable = getResources().getDrawable(R.drawable.ic_agree);
