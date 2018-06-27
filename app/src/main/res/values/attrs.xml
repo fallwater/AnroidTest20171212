@@ -32,4 +32,9 @@
         <attr name="drawableBottomWidth" format="dimension"/>
         <attr name="isAliganCenter" format="boolean"/>
     </declare-styleable>
+
+    <!-- 自动空格EditText -->
+    <declare-styleable name="SpaceEditText">
+        <attr name="space" format="integer"/>
+    </declare-styleable>
 </resources>
