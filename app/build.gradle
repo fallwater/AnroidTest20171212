@@ -30,18 +30,18 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //lottie动画
-    compile 'com.airbnb.android:lottie:2.3.1'
+    implementation 'com.airbnb.android:lottie:2.3.1'
     //butterKnife
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //apache
-    compile 'org.apache.commons:commons-lang3:3.6'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'org.apache.commons:commons-lang3:3.6'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     //BRVAH
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
-    compile("com.github.hotchemi:permissionsdispatcher:3.1.0") {
+    implementation("com.github.hotchemi:permissionsdispatcher:3.1.0") {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
