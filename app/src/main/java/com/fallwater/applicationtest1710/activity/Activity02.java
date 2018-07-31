@@ -4,6 +4,7 @@ import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.fragment.BRVAHFragment;
 import com.fallwater.applicationtest1710.fragment.RVFragment;
+import com.fallwater.applicationtest1710.fragment.TestFragment02;
 import com.fallwater.applicationtest1710.test.SparseArrayTest;
 import com.fallwater.applicationtest1710.unittest.flowlayout.FlowFragment;
 
@@ -59,8 +60,9 @@ public class Activity02 extends BaseActivity {
     }
 
     private void addTestFragment() {
-//        Fragment fragment = new TestFragment02();
-        addFragment(create());
+        Fragment fragment = new TestFragment02();
+        addFragment(fragment);
+//        addFragment(create());
     }
 
 

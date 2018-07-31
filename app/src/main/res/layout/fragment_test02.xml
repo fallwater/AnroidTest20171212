@@ -23,6 +23,17 @@
 
     <!--</com.fallwater.applicationtest1710.view.ViewGroup01>-->
 
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+ <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

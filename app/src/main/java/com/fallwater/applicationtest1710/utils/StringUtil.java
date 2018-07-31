@@ -1,6 +1,7 @@
 package com.fallwater.applicationtest1710.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 
 /**
@@ -71,6 +72,73 @@ public class StringUtil {
         try {
             result = account.substring(0, 4) + account.substring(4, account.length() - 4).replaceAll("\\w", "*")
                     + account.substring(account.length() - 4);
+        } catch (Exception e) {
+        }
+        return StringUtil.isEmpty(result) ? "" : result;
+    }
+
+    /**
+     * 付款人姓名，显示第一个单词，后面全部隐藏显示***（如果姓名仅一个单词，则显示第一个字母，后面显示***）
+     */
+    public static String maskAccountName(String accountName) {
+
+        if (TextUtils.isEmpty(accountName)) {
+            return "";
+        }
+        if (!accountName.contains(" ")) {
+            return mask(accountName, 1, 0);
+        }
+
+        String[] words = accountName.split("\\s+");
+        String maskName = "";
+        int firstWordIndex = -1;
+
+        if (words.length == 1) {
+            return mask(words[0], 1, 0);
+        }
+
+        for (int i = 0; i < words.length; i++) {
+            Log.d("tag", "word[" + i + "]=" + words[i]);
+            if (!TextUtils.isEmpty(words[i]) && firstWordIndex == -1) {
+                maskName = maskName + words[i];
+                firstWordIndex = i;
+                continue;
+            }
+            if (i > firstWordIndex && firstWordIndex != -1) {
+                maskName = maskName + " "+mask(words[i], 0, 0);
+            }
+        }
+        return maskName;
+    }
+
+    /**
+     * @param account     初始字符串
+     * @param startNumber 前面显示位数
+     * @param endNumber   结尾显示位数
+     * @return 处理之后的字符串
+     */
+    public static String mask(String account, int startNumber, int endNumber) {
+        if (TextUtils.isEmpty(account) || account.length() <= startNumber + endNumber) {
+            return account;
+        }
+
+        String result = "";
+        try {
+            String left;
+            if (startNumber == 0) {
+                left = "";
+            } else {
+                left = account.substring(0, startNumber);
+            }
+            String middle = account.substring(startNumber, account.length() - endNumber)
+                    .replaceAll("\\w", "*");
+            String right;
+            if (endNumber == 0) {
+                right = "";
+            } else {
+                right = account.substring(account.length() - endNumber);
+            }
+            result = left + middle + right;
         } catch (Exception e) {
         }
         return StringUtil.isEmpty(result) ? "" : result;
