@@ -23,8 +23,16 @@
 
     <!--</com.fallwater.applicationtest1710.view.ViewGroup01>-->
 
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/tv1"
+        android:text="click"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

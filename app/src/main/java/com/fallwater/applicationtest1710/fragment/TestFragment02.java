@@ -1,21 +1,22 @@
 package com.fallwater.applicationtest1710.fragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.utils.AccountUtils;
 import com.fallwater.applicationtest1710.utils.StringUtil;
-import com.fallwater.applicationtest1710.view.View01;
-import com.fallwater.applicationtest1710.view.ViewGroup01;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -37,6 +38,9 @@ public class TestFragment02 extends BaseFragment {
     @BindView(R.id.tv2)
     TextView mTextView2;
 
+    @BindView(R.id.et)
+    EditText mEditText;
+
     Unbinder unbinder;
 
     @Override
@@ -46,6 +50,11 @@ public class TestFragment02 extends BaseFragment {
 //        String result = numbers.replaceAll("[^0-9]", "");
 //        Log.d("tag", result.substring(0, 5));
 
+//        method1();
+
+    }
+
+    private void method1() {
         String originalAccount = "pansdjf";
         String originalAccount1 = "pan jianbo bo ksdfjklksdjflksjdfksjdflkjsdkljf";
         String originalAccount2 = "ksdfjklksdjflksjdfksjdflkjsdkljf";
@@ -55,7 +64,6 @@ public class TestFragment02 extends BaseFragment {
         Log.i("tag", AccountUtils.maskAccountName(originalAccount1));
         Log.i("tag", AccountUtils.maskAccountName(originalAccount2));
         Log.i("tag", AccountUtils.maskAccountName(originalAccount3));
-
 
         String number0 = "123";
         String number = "1233";
@@ -67,7 +75,8 @@ public class TestFragment02 extends BaseFragment {
         Log.i("tag", AccountUtils.maskAccountNumber(number2));
 
         new MaterialDialog.Builder(getActivity())
-                .content("coent skdjfsflksjflksdjf  lskjdflksjfk l;aksdjf lksjdf sal laskjdflksajf;laksj dflsakjdf sakfjlskdjf lksjdf ")
+                .content(
+                        "coent skdjfsflksjflksdjf  lskjdflksjfk l;aksdjf lksjdf sal laskjdflksajf;laksj dflsakjdf sakfjlskdjf lksjdf ")
                 .positiveText("ok")
                 .onPositive((dialog, which) -> dialog.dismiss())
                 .show();
@@ -90,6 +99,22 @@ public class TestFragment02 extends BaseFragment {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @OnClick({R.id.tv1})
+    public void onClickView(View view) {
+        switch (view.getId()) {
+            case R.id.tv1:
+                if (!StringUtil
+                        .checkPatternAccountName(mEditText.getText().toString(), StringUtil.BANK_TRANSFER_ACCOUNT)) {
+                    ToastUtils.showShort("未通过校验");
+                }else {
+                    ToastUtils.showShort("通过校验");
+                }
+                    break;
+            default:
+                break;
+        }
     }
 
     @Override

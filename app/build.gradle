@@ -50,4 +50,7 @@ dependencies {
     implementation 'com.github.rantianhua:AssembleEssay:v1.0.0'
     //dialog
     implementation 'com.afollestad.material-dialogs:commons:0.9.4.5'
+
+    //工具类
+    implementation 'com.blankj:utilcode:1.13.3'
 }

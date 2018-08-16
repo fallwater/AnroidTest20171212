@@ -4,6 +4,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created with Android Studio
  * Author:zhangjianliang
@@ -11,6 +14,11 @@ import android.widget.EditText;
  */
 
 public class StringUtil {
+
+    /**
+     * 上传转账凭证时校验账户名称用的正则表达时
+     */
+    public static final String BANK_TRANSFER_ACCOUNT = "^.*[A-Za-z].*$";
 
     /**
      * 判断字符串是否为空
@@ -206,5 +214,16 @@ public class StringUtil {
 
     public static String getText(EditText text) {
         return text.getText().toString();
+    }
+
+
+    //检查账户名称
+    public static boolean checkPatternAccountName(String accountName, String patternRex) {
+        Pattern pattern = Pattern.compile(patternRex);
+        Matcher matcher = pattern.matcher(accountName);
+        if (!matcher.matches()||TextUtils.isEmpty(accountName)) {
+            return false;
+        }
+        return true;
     }
 }
