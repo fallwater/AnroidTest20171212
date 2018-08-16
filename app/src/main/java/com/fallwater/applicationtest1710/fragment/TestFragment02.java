@@ -3,15 +3,19 @@ package com.fallwater.applicationtest1710.fragment;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
+import com.fallwater.applicationtest1710.activity.Const;
 import com.fallwater.applicationtest1710.utils.AccountUtils;
+import com.fallwater.applicationtest1710.utils.ImageUtils;
 import com.fallwater.applicationtest1710.utils.StringUtil;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -43,6 +47,9 @@ public class TestFragment02 extends BaseFragment {
 
     Unbinder unbinder;
 
+    @BindView(R.id.imageView)
+    ImageView mImageView;
+
     @Override
     protected void initData() {
 //        String numbers
@@ -51,6 +58,11 @@ public class TestFragment02 extends BaseFragment {
 //        Log.d("tag", result.substring(0, 5));
 
 //        method1();
+
+
+        byte[] imageBytes = Base64.decode(Const.data.getBytes(), Base64.DEFAULT);
+        ImageUtils.displayImage(getActivity(), mImageView, imageBytes,R.mipmap.ic_launcher);
+
 
     }
 
