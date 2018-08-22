@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.activity.Const;
 import com.fallwater.applicationtest1710.utils.AccountUtils;
+import com.fallwater.applicationtest1710.utils.CommonUtils;
 import com.fallwater.applicationtest1710.utils.ImageUtils;
 import com.fallwater.applicationtest1710.utils.StringUtil;
 
@@ -45,6 +46,9 @@ public class TestFragment02 extends BaseFragment {
     @BindView(R.id.et)
     EditText mEditText;
 
+    @BindView(R.id.et2)
+    EditText mEditText2;
+
     Unbinder unbinder;
 
     @BindView(R.id.imageView)
@@ -59,9 +63,8 @@ public class TestFragment02 extends BaseFragment {
 
 //        method1();
 
-
         byte[] imageBytes = Base64.decode(Const.data.getBytes(), Base64.DEFAULT);
-        ImageUtils.displayImage(getActivity(), mImageView, imageBytes,R.mipmap.ic_launcher);
+        ImageUtils.displayImage(getActivity(), mImageView, imageBytes, R.mipmap.ic_launcher);
 
 
     }
@@ -117,15 +120,31 @@ public class TestFragment02 extends BaseFragment {
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.tv1:
-                if (!StringUtil
-                        .checkPatternAccountName(mEditText.getText().toString(), StringUtil.BANK_TRANSFER_ACCOUNT)) {
-                    ToastUtils.showShort("未通过校验");
-                }else {
-                    ToastUtils.showShort("通过校验");
-                }
-                    break;
+                checkPercent();
+//                checkAccount();
+                break;
             default:
                 break;
+        }
+    }
+
+    private void checkPercent() {
+        String text1 = mEditText.getText().toString().trim();
+        String text2 = mEditText2.getText().toString().trim();
+
+        if (CommonUtils.comparePercentString(text1, text2)) {
+            ToastUtils.showShort(text1 + " is smaller than " + text2);
+        } else {
+            ToastUtils.showShort(text1 + " is bigger than " + text2);
+        }
+    }
+
+    private void checkAccount() {
+        if (!StringUtil
+                .checkPatternAccountName(mEditText.getText().toString(), StringUtil.BANK_TRANSFER_ACCOUNT)) {
+            ToastUtils.showShort("未通过校验");
+        } else {
+            ToastUtils.showShort("通过校验");
         }
     }
 
