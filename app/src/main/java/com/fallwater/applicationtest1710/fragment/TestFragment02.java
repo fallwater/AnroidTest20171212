@@ -4,12 +4,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.activity.Const;
+import com.fallwater.applicationtest1710.test.PhotoSampleDialog;
 import com.fallwater.applicationtest1710.utils.AccountUtils;
 import com.fallwater.applicationtest1710.utils.CommonUtils;
 import com.fallwater.applicationtest1710.utils.ImageUtils;
 import com.fallwater.applicationtest1710.utils.StringUtil;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +56,8 @@ public class TestFragment02 extends BaseFragment {
     @BindView(R.id.imageView)
     ImageView mImageView;
 
+    private String mSampleImageUrl = "https:\\/\\/s3-ap-northeast-1.amazonaws.com\\/com-silvrr-installment\\/config\\/auth_placeholder\\/4015\\/sample.png";
+
     @Override
     protected void initData() {
 //        String numbers
@@ -65,6 +69,8 @@ public class TestFragment02 extends BaseFragment {
 
         byte[] imageBytes = Base64.decode(Const.data.getBytes(), Base64.DEFAULT);
         ImageUtils.displayImage(getActivity(), mImageView, imageBytes, R.mipmap.ic_launcher);
+
+        mTextView1.setText("mTextView1\n mTextView2");
 
 
     }
@@ -105,7 +111,7 @@ public class TestFragment02 extends BaseFragment {
 
     @Override
     protected int initLayout() {
-        return R.layout.fragment_test02;
+        return R.layout.fragment_test03;
     }
 
     @Override
@@ -121,6 +127,9 @@ public class TestFragment02 extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv1:
                 checkPercent();
+
+                PhotoSampleDialog photoSampleDialog = new PhotoSampleDialog(getContext(), mSampleImageUrl);
+                photoSampleDialog.show();
 //                checkAccount();
                 break;
             default:
