@@ -37,4 +37,10 @@
     <declare-styleable name="SpaceEditText">
         <attr name="space" format="integer"/>
     </declare-styleable>
+
+    <!-- RoundRelativeLayout -->
+    <declare-styleable name="RoundRelativeLayout">
+        <attr name="rlRadius" format="dimension" />
+        <attr name="rlClipBackground" format="boolean" />
+    </declare-styleable>
 </resources>

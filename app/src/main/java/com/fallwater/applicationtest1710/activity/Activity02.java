@@ -4,6 +4,7 @@ import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.fragment.BRVAHFragment;
 import com.fallwater.applicationtest1710.fragment.BitmapFragment03;
+import com.fallwater.applicationtest1710.fragment.DefaultFragment;
 import com.fallwater.applicationtest1710.fragment.RVFragment;
 import com.fallwater.applicationtest1710.fragment.TestFragment02;
 import com.fallwater.applicationtest1710.test.SparseArrayTest;
@@ -35,8 +36,12 @@ public class Activity02 extends BaseActivity {
 //        testArray();
 //        addBRVAHFragment();
 //        addTestFragment();
+//        addBitmapFragment();
+        addFragment(initFragment());
+    }
 
-        addBitmapFragment();
+    private Fragment initFragment() {
+        return new DefaultFragment();
     }
 
     /**
@@ -89,7 +94,6 @@ public class Activity02 extends BaseActivity {
         addFragment(fragment);
 
     }
-
     private void addFragment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

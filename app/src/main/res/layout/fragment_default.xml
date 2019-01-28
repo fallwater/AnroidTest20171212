@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.fallwater.applicationtest1710.view.RoundRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:rlRadius ="40dp"
+    android:background="@color/colorAccent"
+    app:rlClipBackground="true">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv"
+        android:src="@color/common_color_666666"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+       android:layout_alignBottom="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:textSize="11sp"
+        android:text="@string/test"/>
+</com.fallwater.applicationtest1710.view.RoundRelativeLayout>

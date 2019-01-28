@@ -1,8 +1,9 @@
-package com.fallwater.applicationtest1710;
+package com.fallwater.applicationtest1710.activity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.OnCompositionLoadedListener;
+import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.test.AomicTest;
 import com.fallwater.applicationtest1710.test.CountDownLatchTest;
