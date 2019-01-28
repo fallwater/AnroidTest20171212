@@ -1,6 +1,13 @@
 package com.fallwater.applicationtest1710.fragment;
 
 import com.fallwater.applicationtest1710.R;
+import com.fallwater.applicationtest1710.utils.BitmapUtils;
+import com.fallwater.applicationtest1710.utils.FileHelper;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -10,12 +17,15 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,8 +50,12 @@ public class BitmapFragment03 extends BaseFragment {
     @BindView(R.id.iv_item)
     ImageView mImageView;
 
+    @BindView(R.id.iv_item2)
+    ImageView mImageView2;
+
     @BindView(R.id.info)
-    TextView infoTV;
+    TextView infoTV;    @BindView(R.id.info2)
+    TextView infoTV2;
 
     @Override
     protected void initData() {
@@ -66,18 +80,50 @@ public class BitmapFragment03 extends BaseFragment {
         return rootView;
     }
 
-    @OnClick({R.id.iv_item, R.id.load})
+    @OnClick({R.id.copy, R.id.load})
     public void onClickView(View view) {
         switch (view.getId()) {
-            case R.id.iv_item:
+            case R.id.copy:
+                Bitmap bitmap = BitmapUtils.getBitmapFromView(mImageView);
+                String log = "copy showBitmapInfos: \n" +
+                        "width=: " + bitmap.getWidth() + "\n" +
+                        "height=: " + bitmap.getHeight();
+                Log.e(TAG, log);
+                infoTV2.setText(log);
+                mImageView2.setImageBitmap(BitmapUtils.round(bitmap,40));
                 break;
             case R.id.load:
-                selectFromGalley();
+                AndPermission.with(this)
+                        .permission(Permission.STORAGE)
+//                        .onGranted(new Action<List<String>>() {
+//                            @Override
+//                            public void onAction(List<String> data) {
+//
+//                            }
+//                        })
+                        .rationale(new RationaleListener() {
+                            @Override
+                            public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                            }
+                        })
+                        .callback(new PermissionListener() {
+                            @Override
+                            public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+                                selectFromGalley();
+                            }
+
+                            @Override
+                            public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+
+                            }
+                        })
+                        .start();
                 break;
             default:
                 break;
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -109,7 +155,7 @@ public class BitmapFragment03 extends BaseFragment {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void ProcessResult(Uri destUrl) {
-        String pathName = FileHelper.stripFileProtocol(destUrl.toString());
+        String pathName = FileHelper.getFileByUri(destUrl,getActivity()).getAbsolutePath();
         showBitmapInfos(pathName);
         Bitmap bitmap = BitmapFactory.decodeFile(pathName);
         if (bitmap != null) {
@@ -129,7 +175,6 @@ public class BitmapFragment03 extends BaseFragment {
 
     /**
      * 获取Bitmap的信息
-     * @param pathName
      */
     private void showBitmapInfos(String pathName) {
         BitmapFactory.Options options = new BitmapFactory.Options();

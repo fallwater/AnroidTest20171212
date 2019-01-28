@@ -3,6 +3,7 @@ package com.fallwater.applicationtest1710.activity;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.fragment.BRVAHFragment;
+import com.fallwater.applicationtest1710.fragment.BitmapFragment03;
 import com.fallwater.applicationtest1710.fragment.RVFragment;
 import com.fallwater.applicationtest1710.fragment.TestFragment02;
 import com.fallwater.applicationtest1710.test.SparseArrayTest;
@@ -33,8 +34,9 @@ public class Activity02 extends BaseActivity {
 //        addFragment();
 //        testArray();
 //        addBRVAHFragment();
+//        addTestFragment();
 
-        addTestFragment();
+        addBitmapFragment();
     }
 
     /**
@@ -63,6 +65,11 @@ public class Activity02 extends BaseActivity {
         Fragment fragment = new TestFragment02();
         addFragment(fragment);
 //        addFragment(create());
+    }
+
+    private void addBitmapFragment() {
+        Fragment fragment = new BitmapFragment03();
+        addFragment(fragment);
     }
 
 
