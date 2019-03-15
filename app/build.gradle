@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: "${rootProject.rootDir}/function.gradle"
 
 android {
     compileSdkVersion 26
