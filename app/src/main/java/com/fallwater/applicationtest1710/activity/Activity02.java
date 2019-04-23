@@ -7,6 +7,7 @@ import com.fallwater.applicationtest1710.fragment.BitmapFragment03;
 import com.fallwater.applicationtest1710.fragment.DefaultFragment;
 import com.fallwater.applicationtest1710.fragment.RVFragment;
 import com.fallwater.applicationtest1710.fragment.TestFragment02;
+import com.fallwater.applicationtest1710.fragment.TestFragment03;
 import com.fallwater.applicationtest1710.test.SparseArrayTest;
 import com.fallwater.applicationtest1710.unittest.flowlayout.FlowFragment;
 
@@ -41,7 +42,8 @@ public class Activity02 extends BaseActivity {
     }
 
     private Fragment initFragment() {
-        return new DefaultFragment();
+//        return new DefaultFragment();
+        return new TestFragment03();
     }
 
     /**

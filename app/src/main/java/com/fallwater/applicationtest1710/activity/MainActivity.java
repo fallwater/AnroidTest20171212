@@ -3,6 +3,7 @@ package com.fallwater.applicationtest1710.activity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.OnCompositionLoadedListener;
+import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.test.AomicTest;
@@ -60,7 +61,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.button1})
+    @OnClick({R.id.button1, R.id.tv1, R.id.tv2, R.id.tv3})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
@@ -68,6 +69,15 @@ public class MainActivity extends BaseActivity {
                 nextLottie();
                 break;
             case R.id.id_tv_framespan:
+                break;
+            case R.id.tv1:
+                ToastUtils.showLong("You can't view more records without authorization. Please update your app to the latest version.");
+                break;
+            case R.id.tv2:
+                ToastUtils.showLong("No authorization. Please update your app to the latest version.");
+                break;
+            case R.id.tv3:
+                ToastUtils.showLong("Please update your app to the latest version.");
                 break;
             default:
                 break;
