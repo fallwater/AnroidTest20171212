@@ -4,10 +4,9 @@ import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.fragment.BRVAHFragment;
 import com.fallwater.applicationtest1710.fragment.BitmapFragment03;
-import com.fallwater.applicationtest1710.fragment.DefaultFragment;
+import com.fallwater.applicationtest1710.fragment.FragmentaAgorithm;
 import com.fallwater.applicationtest1710.fragment.RVFragment;
 import com.fallwater.applicationtest1710.fragment.TestFragment02;
-import com.fallwater.applicationtest1710.fragment.TestFragment03;
 import com.fallwater.applicationtest1710.test.SparseArrayTest;
 import com.fallwater.applicationtest1710.unittest.flowlayout.FlowFragment;
 
@@ -43,7 +42,8 @@ public class Activity02 extends BaseActivity {
 
     private Fragment initFragment() {
 //        return new DefaultFragment();
-        return new TestFragment03();
+//        return new TestFragment03();
+        return new FragmentaAgorithm();
     }
 
     /**
