@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
 import com.fallwater.applicationtest1710.test.AomicTest;
+import com.fallwater.applicationtest1710.test.ClassParent;
 import com.fallwater.applicationtest1710.test.CountDownLatchTest;
 import com.fallwater.applicationtest1710.test.CyclicBarrierTest;
 import com.fallwater.applicationtest1710.test.MutableForegroundColorSpan;
@@ -52,7 +53,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        test();
+//        test();
+
+        testJava();
+    }
+
+    private void testJava() {
+        new ClassParent();
     }
 
     @Override
@@ -61,7 +68,8 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.button1, R.id.tv1, R.id.tv2, R.id.tv3})
+    @OnClick({R.id.button1, R.id.tv1, R.id.tv2, R.id.tv3
+    ,R.id.start})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
@@ -78,6 +86,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.tv3:
                 ToastUtils.showLong("Please update your app to the latest version.");
+                break;
+            case R.id.start:
+                Activity3.launch(this);
                 break;
             default:
                 break;
