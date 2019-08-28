@@ -6,6 +6,7 @@ import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.blankj.utilcode.util.ToastUtils;
 import com.fallwater.applicationtest1710.R;
 import com.fallwater.applicationtest1710.base.BaseActivity;
+import com.fallwater.applicationtest1710.mudule.algorithm.Algorithm;
 import com.fallwater.applicationtest1710.test.AomicTest;
 import com.fallwater.applicationtest1710.test.ClassParent;
 import com.fallwater.applicationtest1710.test.CountDownLatchTest;
@@ -55,7 +56,29 @@ public class MainActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 //        test();
 
-        testJava();
+//        testJava();
+//        algorithm();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10000);
+                    ToastUtils.showLong("toast after 10s");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }}};
+
+                ToastUtils.showLong("toast");
+
+        mButton.postDelayed(runnable,5000);
+
+
+    }
+
+    private void algorithm() {
+        Algorithm.longestPalindrome();
+
     }
 
     private void testJava() {
@@ -74,7 +97,8 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.button1:
 //                test();
-                nextLottie();
+                Activity3.launch(this);
+//                nextLottie();
                 break;
             case R.id.id_tv_framespan:
                 break;
