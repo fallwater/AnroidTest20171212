@@ -4,6 +4,8 @@ import com.fallwater.applicationtest1710.define.Tag;
 
 import android.util.Log;
 
+import java.util.HashMap;
+
 /**
  * @author Fallwater潘建波
  * 版权 akulaku
@@ -91,6 +93,78 @@ public class Algorithm {
         }
 
         return 2+2*offset;
+    }
+
+    /**
+     *
+     * @param nums
+     * @param target
+     * @return 和等于指定数的数组下标
+     */
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer,Integer> map = new HashMap<>(nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i])){
+                return new int[]{map.get(nums),i};
+
+            }
+            map.put(nums[i],i);
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     * @param l1
+     * @param l2
+     * @return 两数相加
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode current = head;
+        ListNode m = l1;
+        ListNode n = l2;
+        int carry = 0;
+        while (m !=null || n!=null){
+            int x = (m!=null)?m.val:0;
+            int y = n!=null?n.val:0;
+            int sum = carry+x+y;
+            carry = sum /10;
+            current.next = new ListNode(sum%10);
+
+            m = m!=null?m.next:null;
+            n = n!=null?n.next:null;
+            current = current.next;
+        }
+
+        if (carry>0){
+            current.next = new ListNode(carry);
+        }
+
+        return head.next;
+
+    }
+
+    /**
+     *
+     * @param s
+     * @return 无重复字符的最长字串长度
+     */
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character,Integer> map = new HashMap<>(s.length());
+        int maxRepeat = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))){
+                maxRepeat = maxRepeat <(i-map.get(s.charAt(i)))?(i-map.get(s.charAt(i)))
+                :maxRepeat;
+
+            }
+            map.put(s.charAt(i),i);
+        }
+
+        return map.size() == s.length()?s.length():maxRepeat;
+
     }
 
 }
